@@ -1,6 +1,7 @@
 package com.example.monday.data;
 
-public class Student {
+import java.util.UUID;
 
+public record Student (UUID id, String name){
 
 }

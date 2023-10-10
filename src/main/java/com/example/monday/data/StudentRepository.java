@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+//Adnotacja Service mówi nam, że klasa ta jest definicją springowego Beana
+// i jej instancje są zarządzane przez kontext Springowy
+//Domyślnie jej scope to Singleton - powstanie tylko jedna taka dla całej aplikacji.
 @Service
 public class StudentRepository {
 

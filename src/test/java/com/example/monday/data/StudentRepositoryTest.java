@@ -1,0 +1,33 @@
+package com.example.monday.data;
+
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+/** simple junit tests without mockito
+ */
+class StudentRepositoryTest {
+
+    @Test
+    void shouldReturnMaxIndexWhenStudentListIsNotEmpty() {
+        var studentRepository = new StudentRepository();
+        var student = new Student(UUID.fromString("193c30a0-2c73-4229-989c-c257c05a9413"), "Karola", StudentUnit.GDANSK, 3L);
+        studentRepository.setStudents(List.of(student));
+
+        var maxIndex = studentRepository.getMaxIndex();
+
+        assertEquals(student.index(), maxIndex);
+    }
+
+    @Test
+    void shouldReturnZeroWhenStudentListNotEmpty() {
+        var studentRepository = new StudentRepository();
+
+        var maxIndex = studentRepository.getMaxIndex();
+
+        assertEquals(0L, maxIndex);
+    }
+}

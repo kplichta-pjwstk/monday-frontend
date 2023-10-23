@@ -45,4 +45,9 @@ public class StudentResource {
         }
     }
 
+    @DeleteMapping
+    public void deleteByName(String name) {
+        studentService.deleteByName(name);
+    }
+
 }

@@ -1,10 +1,7 @@
 package com.example.monday.data;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -14,6 +11,11 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Student {
 
+    public Student(String name, StudentUnit unit) {
+        this.name = name;
+        this.unit = unit;
+
+    }
     public Student(String name, StudentUnit unit, Long index) {
         this.name = name;
         this.unit = unit;
@@ -26,6 +28,7 @@ public class Student {
     private String name;
     @Enumerated(EnumType.STRING)
     private StudentUnit unit;
+    @Setter
     private Long index;
 
 }

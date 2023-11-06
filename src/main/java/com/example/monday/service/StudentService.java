@@ -4,6 +4,10 @@ import com.example.monday.data.Student;
 import com.example.monday.data.StudentDataComponent;
 import com.example.monday.data.StudentRepository;
 import com.example.monday.data.StudentUnit;
+import com.example.monday.excetionhandler.RecordNotFoundException;
+import com.example.monday.resource.CreateStudent;
+import com.example.monday.resource.StudentDto;
+import com.example.monday.resource.StudentMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,17 +22,21 @@ import java.util.UUID;
 public class StudentService {
 
     private final StudentRepository studentRepository;
+    private final StudentMapper studentMapper;
 
 
-    public Student saveStudent(Student student) {
-        var index = createIndex(student.getUnit());
-        var toSave = new Student(student.getName(), student.getUnit(), index);
+    public Student saveStudent(CreateStudent createStudent) {
+        var toSave = studentMapper.toEntity(createStudent);
+        var index = createIndex(createStudent.unit());
+        toSave.setIndex(index);
         studentRepository.save(toSave);
         return toSave;
     }
 
-    public Student getStudentById(UUID id) {
-        return studentRepository.findById(id).orElseThrow();
+    public StudentDto getStudentById(UUID id) {
+        return studentRepository.findById(id)
+                .map(studentMapper::toDto)
+                .orElseThrow(() -> new RecordNotFoundException("Student with id " + id + " not found"));
     }
 
     public void deleteByName(String name){

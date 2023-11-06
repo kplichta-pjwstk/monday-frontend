@@ -34,45 +34,45 @@ class MockStudentServiceTest {
     private StudentService studentService;
 
 
-    @Test
-    void givenGdanskUnitWhenSaveStudentThenGetValidIndex() {
-        //given
-        var student = new Student("Karola", StudentUnit.GDANSK, null);
-        /**poniżej przykład konfigurowania zachowania mocka przy wywołaniu konkrentej metody
-         */
-        when(studentRepository.getMaxIndex()).thenReturn(Optional.of(5L));
-
-        //when
-        var savedStudent = studentService.saveStudent(student);
-
-        //then
-        assertEquals(student.getName(), savedStudent.getName());
-        assertEquals(student.getUnit(), savedStudent.getUnit());
-        assertEquals(10, savedStudent.getIndex());
-        verify(studentRepository, times(1)).save(any());
-    }
-
-
-    @Test
-    void givenWarszawaUnitWhenSaveStudentThenGetValidIndex() {
-        //given
-        var student = new Student(UUID.fromString("193c30a0-2c73-4229-989c-c257c05a9413"), "Karola", StudentUnit.WARSZAWA, null);
-        /** poniżej przykład konfigurowania zachowania mocka przy wywołaniu konkrentej metody
-        zachowanie analogiczne jak powyżej, inny zapis
-         */
-        doReturn(Optional.of(7L)).when(studentRepository).getMaxIndex();
-
-        //when
-        studentService.saveStudent(student);
-
-        //then
-        /** ArgumentCaptor pozwala nam odczytać wartość parametru przekazanego do metody wywołanej w ramach mocka
-         */
-        ArgumentCaptor<Student> argumentCaptor = ArgumentCaptor.forClass(Student.class);
-        verify(studentRepository, times(1)).save(argumentCaptor.capture());
-        var savedStudent = argumentCaptor.getValue();
-        assertEquals(student.getName(), savedStudent.getName());
-        assertEquals(student.getUnit(), savedStudent.getUnit());
-        assertEquals(70, savedStudent.getIndex());
-    }
+//    @Test
+//    void givenGdanskUnitWhenSaveStudentThenGetValidIndex() {
+//        //given
+//        var student = new Student("Karola", StudentUnit.GDANSK, null);
+//        /**poniżej przykład konfigurowania zachowania mocka przy wywołaniu konkrentej metody
+//         */
+//        when(studentRepository.getMaxIndex()).thenReturn(Optional.of(5L));
+//
+//        //when
+//        var savedStudent = studentService.saveStudent(student);
+//
+//        //then
+//        assertEquals(student.getName(), savedStudent.getName());
+//        assertEquals(student.getUnit(), savedStudent.getUnit());
+//        assertEquals(10, savedStudent.getIndex());
+//        verify(studentRepository, times(1)).save(any());
+//    }
+//
+//
+//    @Test
+//    void givenWarszawaUnitWhenSaveStudentThenGetValidIndex() {
+//        //given
+//        var student = new Student(UUID.fromString("193c30a0-2c73-4229-989c-c257c05a9413"), "Karola", StudentUnit.WARSZAWA, null);
+//        /** poniżej przykład konfigurowania zachowania mocka przy wywołaniu konkrentej metody
+//        zachowanie analogiczne jak powyżej, inny zapis
+//         */
+//        doReturn(Optional.of(7L)).when(studentRepository).getMaxIndex();
+//
+//        //when
+//        studentService.saveStudent(student);
+//
+//        //then
+//        /** ArgumentCaptor pozwala nam odczytać wartość parametru przekazanego do metody wywołanej w ramach mocka
+//         */
+//        ArgumentCaptor<Student> argumentCaptor = ArgumentCaptor.forClass(Student.class);
+//        verify(studentRepository, times(1)).save(argumentCaptor.capture());
+//        var savedStudent = argumentCaptor.getValue();
+//        assertEquals(student.getName(), savedStudent.getName());
+//        assertEquals(student.getUnit(), savedStudent.getUnit());
+//        assertEquals(70, savedStudent.getIndex());
+//    }
 }

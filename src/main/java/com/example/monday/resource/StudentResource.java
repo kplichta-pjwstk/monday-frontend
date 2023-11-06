@@ -1,10 +1,11 @@
-package com.example.monday;
+package com.example.monday.resource;
 
 import com.example.monday.data.Student;
 import com.example.monday.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -28,24 +29,20 @@ public class StudentResource {
     //oraz w nagłówkach żądania. Należy użyć wtedy adnotacji @RequestHeader.
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveStudents(@RequestBody Student student) {
-        studentService.saveStudent(student);
+    public void saveStudents(@Validated @RequestBody CreateStudent createStudent) {
+        studentService.saveStudent(createStudent);
     }
 
     //@PathVariable razem ze zmienną zawartą w ścieżce w formacie {nazwa_zmiennej} tworzą zmienną wartość url, którą odczytujemy bezpośrednio z adresu
     //Zwrócenie ResponseEntity<?> pozwala nam zmieniać dynamicznie parametry odpowiedzi w metodzie w zależności od wyniku działania aplikacji
     //możemy tu ustawić status ale też body, czy nagłówki. Jako ? podajemy informajcę jaki format powinno mieć body w przypadku poprawnej odpowiedzi.
     @GetMapping("/{id}")
-    public ResponseEntity<Student> getStudentById(@PathVariable UUID id) {
-        var student = studentService.getStudentById(id);
-        if(student != null) {
-            return ResponseEntity.ok(student);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public StudentDto getStudentById(@PathVariable UUID id) {
+        return studentService.getStudentById(id);
     }
 
     @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteByName(String name) {
         studentService.deleteByName(name);
     }

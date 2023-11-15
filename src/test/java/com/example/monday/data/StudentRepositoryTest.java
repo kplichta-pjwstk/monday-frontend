@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /** simple junit tests without mockito
  */
+@Deprecated
 class StudentRepositoryTest {
 
     @Test

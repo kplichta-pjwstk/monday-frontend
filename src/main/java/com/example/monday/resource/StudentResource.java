@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 // Tu podobnie jak przy adnotacji @Service, @RestController mówi Springowi, że jest to definicja Beana,
@@ -45,6 +46,11 @@ public class StudentResource {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteByName(String name) {
         studentService.deleteByName(name);
+    }
+
+    @GetMapping
+    public List<StudentDto> getStudentsByName(@RequestParam String name) {
+        return studentService.getStudentsByName(name);
     }
 
 }

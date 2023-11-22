@@ -1,16 +1,17 @@
 package com.example.monday.service;
 
 import com.example.monday.data.Student;
-import com.example.monday.data.StudentDataComponent;
 import com.example.monday.data.StudentRepository;
 import com.example.monday.data.StudentUnit;
 import com.example.monday.excetionhandler.RecordNotFoundException;
 import com.example.monday.resource.CreateStudent;
 import com.example.monday.resource.StudentDto;
 import com.example.monday.resource.StudentMapper;
+import com.example.monday.excetionhandler.InvalidStudentNameException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 // Tu korzystamy już z Dependency Injection realizowanego przez konstruktor
@@ -40,7 +41,11 @@ public class StudentService {
     }
 
     public void deleteByName(String name){
-        studentRepository.deleteByName(name);
+        var studentsByName = studentRepository.getAllByName(name);
+        if(studentsByName.isEmpty()) {
+            throw new InvalidStudentNameException("Student with name=" + name + " not exists.");
+        }
+        studentRepository.deleteAll(studentsByName);
     }
 
     private Long createIndex(StudentUnit unit) {
@@ -50,5 +55,12 @@ public class StudentService {
         } else {
             return 10 * maxIndex;
         }
+    }
+
+    public List<StudentDto> getStudentsByName(String name) {
+        return studentRepository.getFromGdanskByName(name)
+                .stream()
+                .map(studentMapper::toDto)
+                .toList();
     }
 }

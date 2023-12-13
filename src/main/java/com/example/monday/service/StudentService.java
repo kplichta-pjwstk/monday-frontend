@@ -28,7 +28,7 @@ public class StudentService {
 
     public Student saveStudent(CreateStudent createStudent) {
         var toSave = studentMapper.toEntity(createStudent);
-        var index = createIndex(createStudent.unit());
+        var index = createIndex(createStudent.getUnit());
         toSave.setIndex(index);
         studentRepository.save(toSave);
         return toSave;

@@ -56,8 +56,8 @@ class MockStudentServiceTest {
         var savedStudent = studentService.saveStudent(student);
 
         //then
-        assertEquals(student.name(), savedStudent.getName());
-        assertEquals(student.unit(), savedStudent.getUnit());
+        assertEquals(student.getName(), savedStudent.getName());
+        assertEquals(student.getUnit(), savedStudent.getUnit());
         assertEquals(10, savedStudent.getIndex());
         verify(studentRepository, times(1)).save(any());
     }
@@ -81,8 +81,8 @@ class MockStudentServiceTest {
         ArgumentCaptor<Student> argumentCaptor = ArgumentCaptor.forClass(Student.class);
         verify(studentRepository, times(1)).save(argumentCaptor.capture());
         var savedStudent = argumentCaptor.getValue();
-        assertEquals(student.name(), savedStudent.getName());
-        assertEquals(student.unit(), savedStudent.getUnit());
+        assertEquals(student.getUnit(), savedStudent.getName());
+        assertEquals(student.getUnit(), savedStudent.getUnit());
         assertEquals(70, savedStudent.getIndex());
     }
 }

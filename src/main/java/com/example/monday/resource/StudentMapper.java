@@ -16,6 +16,6 @@ public class StudentMapper {
     }
 
     public Student toEntity(CreateStudent createStudent) {
-        return new Student(createStudent.name(), createStudent.unit());
+        return new Student(createStudent.getName(), createStudent.getUnit());
     }
 }

@@ -7,5 +7,7 @@ spring:
     password: student
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     show-sql: true
+server:
+  port: 8081 #ustawiamy inny port, ponieważ działać będą dwie aplikacje

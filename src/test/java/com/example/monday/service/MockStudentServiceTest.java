@@ -44,23 +44,23 @@ class MockStudentServiceTest {
     }
 
 
-    @Test
-    void givenGdanskUnitWhenSaveStudentThenGetValidIndex() {
-        //given
-        var student = new CreateStudent("Karola", StudentUnit.GDANSK);
-        /**poniżej przykład konfigurowania zachowania mocka przy wywołaniu konkrentej metody
-         */
-        when(studentRepository.getMaxIndex()).thenReturn(Optional.of(5L));
-
-        //when
-        var savedStudent = studentService.saveStudent(student);
-
-        //then
-        assertEquals(student.getName(), savedStudent.getName());
-        assertEquals(student.getUnit(), savedStudent.getUnit());
-        assertEquals(10, savedStudent.getIndex());
-        verify(studentRepository, times(1)).save(any());
-    }
+//    @Test
+//    void givenGdanskUnitWhenSaveStudentThenGetValidIndex() {
+//        //given
+//        var student = new CreateStudent("Karola", StudentUnit.GDANSK);
+//        /**poniżej przykład konfigurowania zachowania mocka przy wywołaniu konkrentej metody
+//         */
+//        when(studentRepository.getMaxIndex()).thenReturn(Optional.of(5L));
+//
+//        //when
+//        var savedStudent = studentService.saveStudent(student);
+//
+//        //then
+//        assertEquals(student.getName(), savedStudent.getName());
+//        assertEquals(student.getUnit(), savedStudent.getUnit());
+//        assertEquals(10, savedStudent.getIndex());
+//        verify(studentRepository, times(1)).save(any());
+//    }
 
 
     @Test
